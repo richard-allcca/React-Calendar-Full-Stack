@@ -1,4 +1,11 @@
-# Notas
+# Calendario con Redux toolkit
+
+<img src="./src/assets/Captura%20de%20pantalla%20(60).png"/>
+
+## Notas
+
+- Detuve el desarrollo por un problema con la serializations de la fecha
+- Al parecer una libreria de redux toolkit esta provocando el fallo me falta investigar
 
 ## Recursos
 
