@@ -22,8 +22,9 @@
   npm i react-redux @reduxjs/toolkit
   npm i react-router-dom
   npm i react-big-calendar
-  npm i moment
+  npm i date-fns
   npm i react-modal
-  npm i react-datetime
+  npm i react-datetime (no se usa)
+  npm i react-datepicker
   npm i sweetalert2
 ```
