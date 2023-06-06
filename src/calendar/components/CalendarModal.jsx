@@ -1,26 +1,40 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
-import { addHours } from 'date-fns';
+import { addHours, differenceInSeconds } from 'date-fns';
+import es from 'date-fns/locale/es';
 
 import Modal from 'react-modal';
-
-import ReactDatePicker from 'react-datepicker';
-
+Modal.setAppElement('#root');
 import { customStyles } from './../../helpers/helperCustomStyles';
 
-Modal.setAppElement('#root');
-
+import ReactDatePicker, { registerLocale } from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+registerLocale('es', es);
+
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+// import 'sweetalert2/src/sweetalert2.scss'
+
+
 import './modal.css';
 
 export const CalendarModal = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [isSubmited, setIsSubmited] = useState(false);
   const [form, setForm] = useState({
     title: 'Richard',
     notes: 'una nota',
     start: new Date(),
     end: addHours(new Date(), 2)
   });
+
+  const titleCase = useMemo(() => {
+    if (!isSubmited) return '';
+    return (form.title.length > 0)
+      // ? '' // el profe lo dejo así
+      ? 'is-valid'
+      : 'is-invalid';
+  }, [form.title, isSubmited]);
 
   const onInputChange = ({ target }) => {
     setForm({
@@ -43,6 +57,22 @@ export const CalendarModal = () => {
     setIsOpen(false);
   };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setIsSubmited(true);
+    const diference = differenceInSeconds(form.end, form.start);// fecha mayor - fecha menor
+
+    if (isNaN(diference) || diference <= 0) {
+      Swal.fire('Fechas incorrectas', 'Revisar las fechas ingresadas', 'error');
+      return;
+    }
+    if (form.title.length <= 0) return;
+
+    console.log(form);
+    // TODO - cerrar modal
+    // Remover erroes
+  };
+
   return (
     <Modal
       isOpen={ isOpen }
@@ -57,8 +87,8 @@ export const CalendarModal = () => {
 
       <h1> Nuevo evento </h1>
       <hr />
-      <form className="container">
 
+      <form onSubmit={ onSubmit } className="container">
         <div className="form-group mb-2">
           <label>Fecha y hora inicio</label>
           <ReactDatePicker
@@ -66,6 +96,9 @@ export const CalendarModal = () => {
             className='form-control'
             onChange={ (event) => onDateChanged(event, 'start') }
             dateFormat="Pp"
+            showTimeSelect
+            locale={ es }
+            timeCaption='Hora'
           />
         </div>
 
@@ -77,6 +110,9 @@ export const CalendarModal = () => {
             className='form-control'
             onChange={ (event) => onDateChanged(event, 'end') }
             dateFormat="Pp"
+            showTimeSelect
+            locale={ es }
+            timeCaption='Hora'
           />
         </div>
 
@@ -85,7 +121,7 @@ export const CalendarModal = () => {
           <label>Titulo y notas</label>
           <input
             type="text"
-            className="form-control"
+            className={ `form-control ${titleCase}` }
             placeholder="Título del evento"
             name="title"
             autoComplete="off"

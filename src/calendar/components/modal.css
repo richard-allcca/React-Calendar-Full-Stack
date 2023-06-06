@@ -68,7 +68,7 @@
 /* sweet alert */
 .swal2-popup{
   width: 37vw;
-  height: 22vh;
+  /* height: 22vh; */
   position: absolute;
   text-align: center;
   top: 50%;
