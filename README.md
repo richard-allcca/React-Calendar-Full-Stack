@@ -1,11 +1,22 @@
 # Calendario con Redux toolkit
 
-<img src="./src/assets/Captura%20de%20pantalla%20(60).png"/>
+***node 16.17.3***
+
+- Para correr en local usa
+
+``` bash
+  yarn dev ó npm run dev
+```
+
+![vista previa](./src/assets/Captura-de-pantalla.png)
 
 ## Notas
 
-- Detuve el desarrollo por un problema con la serializations de la fecha
-- Al parecer una libreria de redux toolkit esta provocando el fallo me falta investigar
+Calendar de react-big-calendar:
+
+- importación de estilos
+- utils con lo necesario para sus props
+- componentes: tiene eventos o compnentes que puede recibir y ser personalizados
 
 ## Recursos
 
@@ -18,14 +29,18 @@
 
 ## Dependencies
 
-``` npm
-
-  npm i react-redux @reduxjs/toolkit
+``` bash
+  npm i prettier
+  npm i eslint-plugin-react
+  npm i eslint-plugin-react-hooks
+  npm i eslint-plugin-react-refresh
   npm i react-router-dom
   npm i react-big-calendar
   npm i date-fns
   npm i react-modal
-  npm i react-datetime (no se usa)
   npm i react-datepicker
   npm i sweetalert2
+  npm i react-redux @reduxjs/toolkit
+  npm i react-redux
+  npm i react-datetime (sin uso)
 ```

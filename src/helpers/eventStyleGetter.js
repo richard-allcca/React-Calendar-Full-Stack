@@ -1,18 +1,16 @@
 
-// NOTE - Aplica estilos al evento en calendario
+// STUB - Util para aplica estilos al evento en calendario
 
 export const eventStyleGetter = (event, start, end, isSelected) => {
-  // console.log(event, start, end, isSelected)
-
-	// name event, start date, end date, background color
+  // console.log(event, start, end, isSelected) // 
 
 	const style = {
 		// backgroundColor: event.bgcolor,
 		backgroundColor: 'hsl(211, 100%, 40%)',
 		borderRadius: '4px',
-		opacity: 0.8,
+		color: 'white',
 		display: 'block',
-		color: 'white'
+		opacity: 0.8,
 	};
 
 	return {

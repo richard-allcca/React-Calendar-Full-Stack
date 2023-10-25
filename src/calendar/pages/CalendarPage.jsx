@@ -1,54 +1,57 @@
-import { useState } from 'react';
-import { Calendar } from 'react-big-calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { useState } from "react";
+import { Calendar } from "react-big-calendar";
 
-import { eventStyleGetter, getMessagesEs, localizer, myEvent } from '../../helpers';
+import {
+  eventStyleGetter, getMessagesEs, localizer, myEvent,
+} from "../../helpers";
 
-import { CalendarEventBox, CalendarModal, Navbar } from '../';
+import { CalendarEventBox, CalendarModal, Navbar } from "../";
 
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useUiStore } from "../../hooks";
 
 export const CalendarPage = () => {
-  const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week')
+  const { openModal } = useUiStore();
 
-  const onDoubleClick = (event) => {
-    console.log({doubleClick: event});
-  }
+  const [ lastView, setLastView ] = useState(
+    localStorage.getItem("lastView") || "week"
+  );
+
+  const onDoubleClick = () => {
+    // console.log(event);
+    openModal();
+  };
 
   const onSelect = (event) => {
-    console.log({click: event});
-  }
+    console.log({ click: event });
+  };
 
+  // Controla la vista (mes, semana, dia, agenda)
   const onViewChange = (event) => {
-    // console.log({changeView: event});
-    localStorage.setItem('lastView', event)
-  }
+    localStorage.setItem("lastView", event);
+  };
 
   return (
     <>
       <Navbar />
 
       <Calendar
-        defaultView={lastView}
-        culture='es' // "es" en locales de localizer
-        localizer={ localizer }
-        events={ myEvent }
-        onDoubleClickEvent={onDoubleClick}
-        onSelectEvent={onSelect}
-        onView={onViewChange}
-        startAccessor="start"
+        culture="es" // Dias semanas y meses en español
+        defaultView={ lastView } // (mes, semana, dia, agenda)
         endAccessor="start"
-        style={ { height: 'calc(100vh - 80px)' } }//  contenedor calendar
-        messages={ getMessagesEs() }
-        eventPropGetter={ eventStyleGetter }
-        components={
-          {
-            event: CalendarEventBox // recibe valores de myEvent
-          }
-        }
+        eventPropGetter={ eventStyleGetter } // Styles to elements calendar
+        events={ myEvent }
+        localizer={ localizer }
+        messages={ getMessagesEs() } // More calendar texts in spanish
+        onDoubleClickEvent={ onDoubleClick }
+        onSelectEvent={ onSelect }
+        onView={ onViewChange }
+        startAccessor="start"
+        style={ { height: "calc(100vh - 80px)" } } //  contenedor calendar
+        components={ { event: CalendarEventBox } }
       />
 
-      <CalendarModal/>
-
+      <CalendarModal />
     </>
   );
 };

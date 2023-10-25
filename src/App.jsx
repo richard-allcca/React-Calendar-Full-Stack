@@ -2,25 +2,17 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { AppRouter } from './router';
 
+import { Provider } from "react-redux";
+import { store } from "./store";
+
 function App() {
   return (
+    <Provider store={store} >
       <BrowserRouter>
         <AppRouter />
       </BrowserRouter>
+    </Provider>
   );
 }
-// function App() {
-//   return (
-//     <div className="App">
-//       <BrowserRouter>
-//         <Routes>
-//           <Route path="/" element={<CalendarScreen />} />
-//           <Route path="/login" element={<LoginScreen />} />
-//           <Route path="*" element={<Navigate replace to="/" />} />
-//         </Routes>
-//       </BrowserRouter>
-//     </div>
-//   );
-// }
 
 export default App;

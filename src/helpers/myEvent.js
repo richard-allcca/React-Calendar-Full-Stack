@@ -1,6 +1,6 @@
 import { addHours } from 'date-fns';
 
-// NOTE - content of event box in calendar
+// STUB - content of event box in calendar
 
 export const myEvent = [
   {
