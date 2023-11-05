@@ -9,6 +9,7 @@ body {
   box-sizing: border-box;
 }
 /* para que los meses se muestren en pantalla completa */
+
 .calendar-screen {
   display: flex;
   flex-flow: column;
@@ -20,3 +21,33 @@ body {
 }
 
 
+/* FAB */
+
+.fab {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  bottom: 25px;
+  font-size: 30px;
+  padding: 25px;
+  position: fixed;
+  right: 25px;
+}
+
+.fab-danger {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  bottom: 25px;
+  font-size: 30px;
+  padding: 25px;
+  position: fixed;
+  left: 25px;
+
+}

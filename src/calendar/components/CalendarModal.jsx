@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { addHours, differenceInSeconds } from 'date-fns';
 
@@ -16,25 +16,27 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 import './modal.css';
-import { useUiStore } from '../../hooks';
+import { useCalendarStore, useUiStore } from '../../hooks';
+
+const initialForm = {
+  title: '',
+  notes: '',
+  start: new Date(),
+  end: addHours(new Date(), 2)
+};
 
 export const CalendarModal = () => {
-  const { isModalOpen } = useUiStore();
-  const { closeModal } = useUiStore();
+  const { isModalOpen, closeModal } = useUiStore();
+  const { activeEvent, startSavingEvent } = useCalendarStore();
 
-  const [ isSubmited, setIsSubmited ] = useState(false);
-  const [ form, setForm ] = useState({
-    title: 'Richard',
-    notes: 'una nota',
-    start: new Date(),
-    end: addHours(new Date(), 2)
-  });
+  const [ isSubmitted, setIsSubmitted ] = useState(false);
+  const [ form, setForm ] = useState(initialForm);
 
   const titleCase = useMemo(() => {
-    if (!isSubmited) return '';
+    if (!isSubmitted) return '';
 
     return form.title.length > 0 ? 'is-valid' : 'is-invalid';
-  }, [ form.title, isSubmited ]);
+  }, [ form.title, isSubmitted ]);
 
   const onInputChange = ({ target }) => {
     setForm({
@@ -50,22 +52,33 @@ export const CalendarModal = () => {
     });
   };
 
-  const onSubmit = event => {
+  const onSubmit = async event => {
     event.preventDefault();
-    setIsSubmited(true);
-    const diference = differenceInSeconds(form.end, form.start);
+    setIsSubmitted(true);
 
-    if (isNaN(diference) || diference <= 0) {
+    const deference = differenceInSeconds(form.end, form.start);
+    if (isNaN(deference) || deference <= 0) {
       Swal.fire('Fechas incorrectas', 'Revisar las fechas ingresadas', 'error');
 
       return;
     }
-    if (form.title.length <= 0) return;
 
-    // console.log(form);
-    // TODO - cerrar modal
-    // Remover erroes
+    if (form.title.length <= 0) return;
+    if (form.notes.length <= 0) {
+      Swal.fire('Sin descripción', 'Estas seguro de continuar sin descripción?', 'error');
+
+      return;
+    }
+    await startSavingEvent(form);
+    closeModal();
+    setIsSubmitted(false);
   };
+
+  useEffect(() => {
+    if (activeEvent === null) return;
+    setForm({ ...activeEvent });
+  }, [ activeEvent ]);
+
 
   return (
     <Modal
@@ -110,7 +123,7 @@ export const CalendarModal = () => {
 
         <hr />
         <div className="form-group mb-2">
-          <label>Titulo y notas</label>
+          <label>Titulo de notas</label>
           <input
             type="text"
             className={ `form-control ${titleCase}` }
@@ -120,12 +133,12 @@ export const CalendarModal = () => {
             value={ form.title }
             onChange={ onInputChange }
           />
-          <small id="emailHelp" className="form-text text-muted">
-            Una descripción corta
-          </small>
         </div>
 
         <div className="form-group mb-2">
+          <small id="emailHelp" className="form-text text-muted mb-2" >
+            Una descripción corta
+          </small>
           <textarea
             type="text"
             className="form-control"
@@ -134,10 +147,11 @@ export const CalendarModal = () => {
             name="notes"
             value={ form.notes }
             onChange={ onInputChange }></textarea>
-          <small id="emailHelp" className="form-text text-muted">
-            Información adicional
-          </small>
         </div>
+
+        <small id="emailHelp" className="form-text text-muted mb-2">
+          Información adicional
+        </small>
 
         <button type="submit" className="btn btn-outline-primary btn-block">
           <i className="far fa-save"></i>

@@ -1,5 +1,4 @@
-import React from 'react';
-import './login.css'
+import './login.css';
 
 export const LoginPage = () => {
   return (
@@ -7,6 +6,7 @@ export const LoginPage = () => {
       <div className="row">
 
         {/* SECTION - lOGIN */ }
+
         <div className="col-md-6 login-form-1">
           <h3>Ingreso</h3>
           <form>
@@ -31,6 +31,7 @@ export const LoginPage = () => {
         </div>
 
         {/* SECTION - REGISTRO */ }
+
         <div className="col-md-6 login-form-2">
           <h3>Registro</h3>
           <form>

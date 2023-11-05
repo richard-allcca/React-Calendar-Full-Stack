@@ -5,13 +5,15 @@ import {
   eventStyleGetter, getMessagesEs, localizer, myEvent,
 } from "../../helpers";
 
-import { CalendarEventBox, CalendarModal, Navbar } from "../";
+import { CalendarEventBox, CalendarModal, FabAddNewEvent, Navbar } from "../";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { useUiStore } from "../../hooks";
+import { useCalendarStore, useUiStore } from "../../hooks";
+import { FabDelete } from "../components/FabDelete";
 
 export const CalendarPage = () => {
   const { openModal } = useUiStore();
+  const { events, setActiveEvent } = useCalendarStore();
 
   const [ lastView, setLastView ] = useState(
     localStorage.getItem("lastView") || "week"
@@ -23,7 +25,8 @@ export const CalendarPage = () => {
   };
 
   const onSelect = (event) => {
-    console.log({ click: event });
+    // console.log({ click: event });
+    setActiveEvent(event);
   };
 
   // Controla la vista (mes, semana, dia, agenda)
@@ -40,9 +43,9 @@ export const CalendarPage = () => {
         defaultView={ lastView } // (mes, semana, dia, agenda)
         endAccessor="start"
         eventPropGetter={ eventStyleGetter } // Styles to elements calendar
-        events={ myEvent }
+        events={ events }
         localizer={ localizer }
-        messages={ getMessagesEs() } // More calendar texts in spanish
+        messages={ getMessagesEs() } // More calendar texts in Spanish
         onDoubleClickEvent={ onDoubleClick }
         onSelectEvent={ onSelect }
         onView={ onViewChange }
@@ -52,6 +55,8 @@ export const CalendarPage = () => {
       />
 
       <CalendarModal />
+      <FabAddNewEvent/>
+      <FabDelete/>
     </>
   );
 };

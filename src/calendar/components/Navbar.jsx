@@ -1,4 +1,3 @@
-import React from 'react'
 
 export const Navbar = () => {
   return (
@@ -15,4 +14,4 @@ export const Navbar = () => {
       </button>
     </div>
   );
-}
+};
