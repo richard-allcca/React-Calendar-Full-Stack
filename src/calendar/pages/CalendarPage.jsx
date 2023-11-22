@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Calendar } from "react-big-calendar";
 
 import {
-  eventStyleGetter, getMessagesEs, localizer, myEvent,
+  eventStyleGetter, getMessagesEs, localizer,
 } from "../../helpers";
 
 import { CalendarEventBox, CalendarModal, FabAddNewEvent, Navbar } from "../";
@@ -15,7 +15,7 @@ export const CalendarPage = () => {
   const { openModal } = useUiStore();
   const { events, setActiveEvent } = useCalendarStore();
 
-  const [ lastView, setLastView ] = useState(
+  const [ lastView ] = useState(
     localStorage.getItem("lastView") || "week"
   );
 
