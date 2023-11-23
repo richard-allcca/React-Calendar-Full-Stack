@@ -16,7 +16,7 @@ const initialState = {
     }
   }],
   activeEvent: null
-}
+};
 
 
 export const eventSlice = createSlice({
@@ -29,10 +29,11 @@ export const eventSlice = createSlice({
       action.payload.start = new Date(action.payload.start).toISOString();
       action.payload.end = new Date(action.payload.end).toISOString();
       // state.activeEvent = action.payload;
+
       return {
         ...state.activeEvent,
         ...action.payload
-      }
+      };
     },
     addEvent: (state, action) => {
       // action.payload.start = moment(action.payload.start).toDate().toISOString();
@@ -42,10 +43,11 @@ export const eventSlice = createSlice({
       action.payload.id = new Date().getTime();
       action.payload.background = '#fafafa';
       // state.events.push(action.payload);
+
       return {
-        ...state, 
-        events: [...state.events, { ...action.payload }],
-      }
+        ...state,
+        events: [...state.events, { ...action.payload }]
+      };
       // return {
       //   ...state,
       //   events: [
@@ -54,11 +56,11 @@ export const eventSlice = createSlice({
       //   ]
       // }
     },
-    clearEvent: (state, action) => { },
-    updateEvent: (state, action) => { },
-    deleteEvent: (state, action) => { },
+    clearEvent: (state, action) => {},
+    updateEvent: (state, action) => {},
+    deleteEvent: (state, action) => {}
   }
-})
+});
 
 export const { activeEvent, addEvent, clearEvent, updateEvent, deleteEvent } = eventSlice.actions;
 

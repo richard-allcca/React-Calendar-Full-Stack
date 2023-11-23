@@ -8,12 +8,14 @@ import {
 import { CalendarEventBox, CalendarModal, FabAddNewEvent, Navbar } from "../";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { useCalendarStore, useUiStore } from "../../hooks";
+import { useAuthStore, useCalendarStore, useUiStore } from "../../hooks";
 import { FabDelete } from "../components/FabDelete";
+import { useEffect } from "react";
 
 export const CalendarPage = () => {
   const { openModal } = useUiStore();
-  const { events, setActiveEvent } = useCalendarStore();
+  const { user } = useAuthStore();
+  const { events, setActiveEvent, startLoadingEvents } = useCalendarStore();
 
   const [ lastView ] = useState(
     localStorage.getItem("lastView") || "week"
@@ -34,6 +36,11 @@ export const CalendarPage = () => {
     localStorage.setItem("lastView", event);
   };
 
+  useEffect(() => {
+    startLoadingEvents();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -42,7 +49,7 @@ export const CalendarPage = () => {
         culture="es" // Dias semanas y meses en español
         defaultView={ lastView } // (mes, semana, dia, agenda)
         endAccessor="start"
-        eventPropGetter={ eventStyleGetter } // Styles to elements calendar
+        eventPropGetter={ (event) => eventStyleGetter(event,user) } // Styles to elements calendar
         events={ events }
         localizer={ localizer }
         messages={ getMessagesEs() } // More calendar texts in Spanish

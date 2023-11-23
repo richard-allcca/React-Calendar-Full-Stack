@@ -1,12 +1,11 @@
 
 // STUB - Util para aplica estilos al evento en calendario
 
-export const eventStyleGetter = (event, start, end, isSelected) => {
-  // console.log(event, start, end, isSelected) // 
+export const eventStyleGetter = (event, user) => {
+	const isMyEvent = user.uid === event.user._id || user.uid === event.user.uid ;
 
 	const style = {
-		// backgroundColor: event.bgcolor,
-		backgroundColor: 'hsl(211, 100%, 40%)',
+		backgroundColor:  isMyEvent ? '#0064d3' : '#e53238',
 		borderRadius: '4px',
 		color: 'white',
 		display: 'block',

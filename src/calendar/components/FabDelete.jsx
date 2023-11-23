@@ -4,6 +4,7 @@ export const FabDelete = () => {
   const { activeEvent, startDeleteEvent } = useCalendarStore();
 
   const handleDelete = () => {
+    // console.log('click');
     startDeleteEvent();
   };
 
