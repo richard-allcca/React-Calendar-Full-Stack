@@ -36,7 +36,7 @@ export const useAuthStore = () => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
-      dispatch( onLogout(error.response?.data?.msg || 'fallo el resgistro'));
+      dispatch( onLogout(error.response?.data?.msg || 'fallo el registro'));
       setTimeout(() => {
         dispatch( clearErrorMessage() );
       }, 10);

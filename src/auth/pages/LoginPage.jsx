@@ -1,8 +1,8 @@
-import { useFrom } from '../../hooks/useForm';
-import './login.css';
-import { useAuthStore } from './../../hooks';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
+import { useFrom } from '../../hooks/useForm';
+import { useAuthStore } from './../../hooks';
+import './login.css';
 
 const loginFormFields = {
   loginEmail: '',
@@ -17,7 +17,9 @@ const registerFormFields = {
 };
 
 export const LoginPage = () => {
+  // CustomHook for Login
   const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useFrom(loginFormFields);
+  // CustomHook for Register
   const {
     registerName, registerEmail, registerPassword, registerPassword2, onInputChange: onRegisterInputChange
   } = useFrom(registerFormFields);
@@ -49,7 +51,7 @@ export const LoginPage = () => {
 
         {/* SECTION - lOGIN */ }
 
-        <div className="col-md-6 login-form-1">
+        <div className="col-md-6 login-form-1 bg-secondary">
           <h3>Ingreso</h3>
           <form onSubmit={loginSubmit} >
             <div className="form-group">
@@ -78,7 +80,7 @@ export const LoginPage = () => {
           </form>
         </div>
 
-        {/* SECTION - REGISTRO */ }
+        {/* SECTION - REGISTER */ }
 
         <div className="col-md-6 login-form-2">
           <h3>Registro</h3>

@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { LoginPage } from './../auth';
 import { CalendarPage } from "../calendar";
 import { useAuthStore } from "../hooks";
 import { useEffect } from "react";
+import { LoginPage } from "../auth/pages/LoginPage";
 
 export const AppRouter = () => {
   // const authStatus = 'authenticated';

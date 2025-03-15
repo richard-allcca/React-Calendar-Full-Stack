@@ -2,12 +2,15 @@ html,
 body {
   height: 100vh;
   /* width: 100vw; */
+  /* background-color: rgb(59, 53, 53); */
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 /* para que los meses se muestren en pantalla completa */
 
 .calendar-screen {

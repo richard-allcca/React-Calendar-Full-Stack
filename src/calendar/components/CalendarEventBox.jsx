@@ -1,9 +1,10 @@
-import React from "react";
+import PropTypes from 'prop-types';
 
 export const CalendarEventBox = ({ event }) => {
-  // console.log(event); 
+  // console.log(event);
   const { title, user } = event;
-  return (
+
+return (
     <>
       <strong>{title}</strong>
       <br />
@@ -12,3 +13,6 @@ export const CalendarEventBox = ({ event }) => {
   );
 };
 
+CalendarEventBox.propTypes = {
+  event: PropTypes.object,
+};

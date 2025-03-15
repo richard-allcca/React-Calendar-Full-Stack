@@ -26,7 +26,7 @@ export const useCalendarStore = () => {
       if(calendarEvent.id){
         // Actualizar el evento en la DDBB
         const { data } = await calendarApi.put(`/event/${calendarEvent.id}`, calendarEvent);
-        // Se envia el evento modificado al state general de eventos
+        // Se envía el evento modificado al state general de eventos
         console.log(data);
         dispatch(onUpdateEvent({ ...calendarEvent, user }));
       }else {

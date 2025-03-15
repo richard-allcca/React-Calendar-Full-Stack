@@ -3,20 +3,20 @@ import { useEffect, useMemo, useState } from 'react';
 import { addHours, differenceInSeconds } from 'date-fns';
 
 import Modal from 'react-modal';
-Modal.setAppElement('#root');
 import { customStyles } from './../../helpers/helperCustomStyles';
+Modal.setAppElement('#root');
 
 // change format lenguaje at ReactDatePicker
+import es from 'date-fns/locale/es';
 import ReactDatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import es from 'date-fns/locale/es';
 registerLocale('es', es);
 
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-import './modal.css';
 import { useCalendarStore, useUiStore } from '../../hooks';
+import './modal.css';
 
 const initialForm = {
   title: '',
